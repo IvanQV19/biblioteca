@@ -31,38 +31,44 @@ ruta.post("/nuevousuario", subirArchivo(), async(req, res)=>{
     res.redirect("/");
 });
 
-ruta.get("/editar/:id",async(req, res)=>{
-    var user=await buscarPorID(req.params.id);
-    res.render("usuarios/modificar",{user});
-    console.log(user);
- 
+ruta.get("/editar/:id", admin, async (req, res) => {
+    try {
+        var user = await buscarPorID(req.params.id);
+        res.render("usuarios/modificar", { user });
+        console.log(user);
+    } catch (error) {
+        console.error("Error al obtener usuario para editar", error);
+        res.status(500).send("Error interno de servidor");
+    }
 });
 
-ruta.post("/editar", subirArchivo(), async(req, res)=>{
-    try{
-        const usuarioAct=await buscarPorID(req.body.id);
-        if (usuarioAct && req.session.usuario==usuarioAct.usuario){ 
-        if (req.file) {
-            req.body.archivo=req.file.originalname;
-            if (usuarioAct.archivo) {
-                const rutaArchivoAnterior=`web/images${usuarioAct.archivo}`;
-               fs.unlinkSync(rutaArchivoAnterior);
-            }}else{
-            req.body.archivo=req.body.archivoViejo;
+ruta.post("/editar", subirArchivo(), async (req, res) => {
+    try {
+        const usuarioAct = await buscarPorID(req.body.id);
+
+        if (usuarioAct && req.session.usuario == usuarioAct.usuario) {
+            if (req.file) {
+                req.body.archivo = req.file.originalname;
+                if (usuarioAct.archivo) {
+                    const rutaArchivoAnterior = `web/images/${usuarioAct.archivo}`;
+                    fs.unlinkSync(rutaArchivoAnterior);
+                }
+            } else {
+                req.body.archivo = req.body.archivoViejo;
+            }
+
+            await modificaUsuario(req.body);
+            res.redirect("/");
+        } else {
+            res.status(403).send("No tienes autorización para editar este usuario");
         }
-        await modificaUsuario(req.body);
-        res.redirect("/");
-    }else{
-        res.status(403).send("No tienes autorizacion para editar este usuario");
-        res.redirect("/usuarios");
-    }
-    }catch(error){
+    } catch (error) {
         console.error("Error al editar registro", error);
         res.status(500).send("Error interno de servidor");
-    }    
+    }
 });
 
-ruta.get("/borrar/:id", async(req, res)=>{
+ruta.get("/borrar/:id", admin, async(req, res)=>{
     var usuario=await buscarPorID(req.params.id)
     if(usuario){
         var archivo=usuario.archivo;

@@ -1,34 +1,50 @@
 class Producto {
     constructor(id, data) {
         this.bandera = 0;
-        this.id = id;
-        this.nombre = data.nombre;
-        this.descripcion = data.descripcion;
-        this.precio = data.precio;
-        this.foto = data.foto;
+        this._id = id;
+        this._nombre = data.nombre;
+        this._descripcion = data.descripcion;
+        this._comentarios = data.comentarios;
+        this._precio = data.precio;
+        this._foto = data.foto;
+        this._puntuacion = data.puntuacion || 0;  // Nueva propiedad para la puntuación
     }
 
+    // Métodos de set
+
     set id(id) {
-        if (id != null)
-            id.length > 0 ? this._id = id : this.bandera = 1;
+        this._id = id && id.length > 0 ? id : this.bandera = 1;
     }
 
     set nombre(nombre) {
-        nombre.length > 0 ? this._nombre = nombre : this.bandera = 1;
+        this._nombre = nombre.length > 0 ? nombre : this.bandera = 1;
     }
 
     set descripcion(descripcion) {
-        descripcion.length > 0 ? this._descripcion = descripcion : this.bandera = 1;
+        this._descripcion = descripcion.length > 0 ? descripcion : this.bandera = 1;
+    }
+
+    set comentarios(comentarios) {
+        this._comentarios = comentarios.length > 0 ? comentarios : this.bandera = 1;
     }
 
     set precio(precio) {
-        precio.length > 0 ? this._precio = precio : this.bandera = 1;
+        this._precio = precio.length > 0 ? precio : this.bandera = 1;
     }
 
-
-    set foto(foto){
-        foto.length >0 ? this._foto = foto : this.bandera = 1;
+    set foto(foto) {
+        this._foto = foto.length > 0 ? foto : this.bandera = 1;
     }
+
+    set puntuacion(puntuacion) {
+        if (puntuacion >= 0 && puntuacion <= 5) {
+            this._puntuacion = puntuacion;
+        } else {
+            this.bandera = 1;  // Puntuación no válida
+        }
+    }
+
+    // Métodos de get
 
     get id() {
         return this._id;
@@ -42,32 +58,37 @@ class Producto {
         return this._descripcion;
     }
 
+    get comentarios() {
+        return this._comentarios;
+    }
+
     get precio() {
         return this._precio;
     }
 
-
-    get foto(){
+    get foto() {
         return this._foto;
     }
 
+    get puntuacion() {
+        return this._puntuacion;
+    }
+
     obtenerDatosP() {
-        if (this._id != null)
-            return {
-                id: this.id,
-                nombre: this.nombre,
-                descripcion: this.descripcion,
-                precio: this.precio,
-                foto: this.foto,
-            };
-        else {
-            return {
-                nombre: this.nombre,
-                descripcion: this.descripcion,
-                precio: this.precio,
-                foto: this.foto,
-            };
+        const datosProducto = {
+            nombre: this._nombre,
+            descripcion: this._descripcion,
+            comentarios: this._comentarios,
+            precio: this._precio,
+            foto: this._foto,
+            puntuacion: this._puntuacion,
+        };
+
+        if (this._id != null) {
+            datosProducto.id = this._id;
         }
+
+        return datosProducto;
     }
 }
 

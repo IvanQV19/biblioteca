@@ -1,5 +1,15 @@
 <%- include("../templates/encabezado")%>
 <%- include("../templates/menu")%>
+
+<style>
+    section.vh-100 {
+        /* Establece la imagen de fondo */
+        background-image: url('https://wallpapercrafter.com/desktop/24921-cup-coffee-newspaper-breakfast-4k.jpg'); /* Reemplaza 'ruta_de_tu_imagen.jpg' con la ruta real de tu imagen */
+        background-size: cover; /* Ajusta la imagen de fondo para que cubra toda la sección */
+        background-position: center; /* Centra la imagen de fondo */
+    }
+  </style>
+  <section class="vh-100">
 <div class="container mt-5">
     <form action="/editar" method="post" enctype="multipart/form-data">
         <div class="card">

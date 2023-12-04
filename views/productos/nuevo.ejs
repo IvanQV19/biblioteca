@@ -1,14 +1,25 @@
 <%- include ("../templates/encabezado")%>
 <%- include ("../templates/menu")%>
+
+<style>
+  section.vh-100 {
+      /* Establece la imagen de fondo */
+      background-image: url('https://wallpapercrafter.com/desktop/24921-cup-coffee-newspaper-breakfast-4k.jpg'); /* Reemplaza 'ruta_de_tu_imagen.jpg' con la ruta real de tu imagen */
+      background-size: cover; /* Ajusta la imagen de fondo para que cubra toda la sección */
+      background-position: center; /* Centra la imagen de fondo */
+  }
+</style>
+<section class="vh-100">
 <div class="container mt-5">
   <form action="/nuevoproducto" method="post" enctype="multipart/form-data">
     <div class="card"></div>
       <div class="card-header">
-        <h1>Nuevo producto</h1>
+        <h1>Nuevo libro</h1>
       </div>
       <div class="card-body">
-        <input class="form-control mb-3" type="text" name="nombre" id="nombre" placeholder="Nombre del Producto" autofocus>        
+        <input class="form-control mb-3" type="text" name="nombre" id="nombre" placeholder="Nombre del Libro" autofocus>        
         <input class="form-control mb-3" type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
+        <input class="form-control mb-3" type="text" name="comentarios" id="comentarios" placeholder="Comentarios">
         <input class="form-control" type="text" name="precio" id="precio" placeholder="Precio">
         <input class="form-control" type="file" name="foto" id="foto" placeholder="Foto">
       </div>

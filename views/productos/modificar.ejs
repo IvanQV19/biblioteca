@@ -1,22 +1,40 @@
 <%- include ("../templates/encabezado")%>
 <%- include ("../templates/menu")%>
+
+<style>
+  section.vh-100 {
+      /* Establece la imagen de fondo */
+      background-image: url('https://wallpapercrafter.com/desktop/24921-cup-coffee-newspaper-breakfast-4k.jpg'); /* Reemplaza 'ruta_de_tu_imagen.jpg' con la ruta real de tu imagen */
+      background-size: cover; /* Ajusta la imagen de fondo para que cubra toda la sección */
+      background-position: center; /* Centra la imagen de fondo */
+  }
+</style>
+<section class="vh-100">
 <div class="container mt-5">
   <form action="/editarProducto" method="post" enctype="multipart/form-data">
     <div class="card">
       <div class="card-header">
-        <h1>Modificar producto</h1>
+        <h1>Modificar libro</h1>
       </div>
       <div class="card-body">
         <input type="hidden" name="id" id="id" value="<%= producto.id %>">
         <input class="form-control mb-3" type="text" value="<%= producto.nombre %>" name="nombre" id="nombre" placeholder="Nombre del Producto" autofocus>
         <input class="form-control mb-3" type="text" value="<%= producto.descripcion %>" name="descripcion" id="descripcion" placeholder="Descripcion">
+        <input class="form-control mb-3" type="text" value="<%= producto.comentarios %>" name="comentarios" id="comentarios" placeholder="Comentarios">
         <input class="form-control" type="number" value="<%= producto.precio %>" name="precio" id="precio" placeholder="Precio">
         <input class="form-control" type="file" name="foto" id="foto" placeholder="Foto">
       </div>      
+
+      <!-- Nueva sección para evaluar -->
       <div class="card-footer">
+        <label for="puntuacion">Puntuación:</label>
+        <input type="number" name="puntuacion" id="puntuacion" min="1" max="5" value="<%= producto.puntuacion %>" required>
         <button type="submit" class="form-control btn btn-primary">Modificar Archivo</button>
       </div>
+      <!-- Fin de la nueva sección -->
+
     </div>
   </form>
 </div>
+
 <%- include ("../templates/pie")%>

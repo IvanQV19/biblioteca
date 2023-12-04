@@ -1,8 +1,17 @@
 <%- include ("../templates/encabezado")%>
 <%- include ("../templates/menu")%>
 
+<style>
+  section.vh-100 {
+      /* Establece la imagen de fondo */
+      background-image: url('https://wallpapercrafter.com/desktop/24921-cup-coffee-newspaper-breakfast-4k.jpg'); /* Reemplaza 'ruta_de_tu_imagen.jpg' con la ruta real de tu imagen */
+      background-size: cover; /* Ajusta la imagen de fondo para que cubra toda la sección */
+      background-position: center; /* Centra la imagen de fondo */
+  }
+</style>
+<section class="vh-100">
 <div class="container mt-5">
-  <div class="card"></div>
+  <div class="card">
     <div class="card-header">
       <h1>Libros</h1>
     </div>
@@ -12,42 +21,38 @@
           <tr>
             <th>Id</th>
             <th>Nombre</th>            
-            <th>Descrpcion</th>
+            <th>Descripción</th>
             <th>Cuota recuperación</th>
             <th>Archivo</th>
+            <th>Comentarios</th>
             <th>Editar/Borrar</th>
+            <th>Evaluar</th> <!-- Nueva columna para evaluar -->
           </tr>
         </thead>
         <tbody>
-          
-            <% 
-            
-            productos.forEach((producto) =>{ 
-              
-              
-              %>
-              <tr>
-                <td><%= producto.id %></td>
-                <td><%= producto.nombre %></td>                
-                <td><%= producto.descripcion %></td>
-                <td><%= producto.precio %></td>
-                <td><img width="100px" height="100px" src="/images/<%=producto.foto %>"></td>
-                <td>
-                  <a href="/editarProducto/<%= producto.id %>">Editar</a>
-                  <a href="/borrarProducto/<%= producto.id %>">Borrar</a>
-                </td>
-              </tr>
-            <% 
-          
-            }); 
-            
-            %>
-          
+          <% productos.forEach((producto) => { %>
+            <tr>
+              <td><%= producto.id %></td>
+              <td><%= producto.nombre %></td>                
+              <td><%= producto.descripcion %></td>
+              <td><%= producto.precio %></td>
+              <td><img width="100px" height="100px" src="/images/<%= producto.foto %>"></td>
+              <td><%= producto.comentarios %></td>
+              <td>
+                <a href="/editarProducto/<%= producto.id %>">Editar</a>
+                <a href="/borrarProducto/<%= producto.id %>">Borrar</a>
+              </td>
+              <td>
+                <%= producto.puntuacion %>
+              </td>
+            </tr>
+          <% }); %>
         </tbody>
       </table>
     </div>
     <div class="card-footer">
     </div>
-  
-  <%- include ("../templates/pie")%>
+  </div>
+</div>
 
+<%- include ("../templates/pie")%>
